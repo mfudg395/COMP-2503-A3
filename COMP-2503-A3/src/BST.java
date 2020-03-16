@@ -1,12 +1,14 @@
 import java.util.Iterator;
 import java.util.Comparator;
 
-public class BST<T extends Comparable<T>> implements Iterable<T>
-{
+public class BST<T extends Comparable<T>> implements Iterable<T> {
+	
+	private BSTNode root;
+	private int size;
 
 	public BST() {
-		// TODO Auto-generated method stub
-		// Create a new BST using the natural ordering of T.
+		root = null;
+		size = 0;
 	}
 
 	public BST( Comparator<T> c) {
@@ -15,13 +17,25 @@ public class BST<T extends Comparable<T>> implements Iterable<T>
 	}
 	
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
-	public int height() {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * Returns the height of a given node.
+	 * 
+	 * @return height of node
+	 */
+	public int height(BSTNode<T> node) {
+		int h = 0;
+		if (node == null) {
+			return 0;
+		}
+		if (height(node.getLeft()) > height(node.getRight())) {
+			h = height(node.getLeft()) + 1;
+		} else {
+			h = height(node.getRight()) + 1;
+		}
+		return h;
 	}
 
 	@Override
