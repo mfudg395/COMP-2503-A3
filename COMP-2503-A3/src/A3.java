@@ -80,13 +80,13 @@ public class A3 {
        
        System.out.println("Alphabetic Tree: (Optimum Height: " + 
              optHeight(wordsByNaturalOrder.size()) + ") (Actual Height: " 
-             + wordsByNaturalOrder.height() + ")");
+             + wordsByNaturalOrder.height(wordsByNaturalOrder.getRoot()) + ")");
        System.out.println("Frequency Tree: (Optimum Height: " + 
              optHeight(wordsByFreqDesc.size()) + ") (Actual Height: " 
-             + wordsByFreqDesc.height() + ")");
+             + wordsByFreqDesc.height(wordsByFreqDesc.getRoot()) + ")");
        System.out.println("Length Tree: (Optimum Height: " + 
              optHeight(wordsByLength.size()) + ") (Actual Height: " 
-             + wordsByLength.height() + ")");
+             + wordsByLength.height(wordsByLength.getRoot()) + ")");
    }
    
    /* Read the file and add words to the list/tree. 
