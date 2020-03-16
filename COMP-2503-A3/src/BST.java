@@ -43,6 +43,12 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		}
 	}
 	
+	public boolean nodeExists(BSTNode<T> node) {
+		if (root == null) {
+			return false;
+		}
+	}
+	
 	public int size() {
 		return size;
 	}
