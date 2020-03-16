@@ -6,7 +6,7 @@
  * 
  * @author Matthew Fudge
  */
-public class BSTNode<T extends Comparable<T>> {
+public class BSTNode<T extends Comparable<T>> implements Comparable<BSTNode<T>> {
 	
 	private T data;
 	private BSTNode<T> left;
@@ -36,6 +36,11 @@ public class BSTNode<T extends Comparable<T>> {
 	
 	public BSTNode<T> getRight() {
 		return right;
+	}
+
+	@Override
+	public int compareTo(BSTNode<T> node) {
+		return this.getData().compareTo(node.getData());
 	}
 
 }
