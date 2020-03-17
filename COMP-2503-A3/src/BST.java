@@ -41,11 +41,22 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 				add(root.getRight(), nodeToAdd);
 			}
 		}
+		
 	}
 	
-	public boolean nodeExists(BSTNode<T> node) {
+	public boolean nodeExists(BSTNode<T> root, BSTNode<T> node) {
 		if (root == null) {
 			return false;
+		}
+		
+		if (root.equals(node)) {
+			return true;
+		}
+		
+		if (root.getLeft() != null) {
+			return nodeExists(root.getLeft(), node);
+		} else {
+			return nodeExists(root.getRight(), node);
 		}
 	}
 	
