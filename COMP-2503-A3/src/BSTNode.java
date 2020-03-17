@@ -42,5 +42,9 @@ public class BSTNode<T extends Comparable<T>> implements Comparable<BSTNode<T>> 
 	public int compareTo(BSTNode<T> node) {
 		return this.getData().compareTo(node.getData());
 	}
+	
+	public boolean equals(BSTNode<T> node) {
+		return this.getData().equals(node.getData());
+	}
 
 }
