@@ -65,8 +65,13 @@ public class Token implements Comparable<Token> {
 
       public int compare( Token w1, Token w2) 
       {
-    	  // TODO:
-    	  return 0;
+    	  int length1 = w1.getWord().length();
+    	  int length2 = w2.getWord().length();
+    	  
+    	  if (length1 - length2 == 0)
+    		  return w1.compareTo(w2);
+    	  else
+    		  return length2 - length1;
       }
    };
 
