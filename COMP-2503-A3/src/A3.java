@@ -95,14 +95,17 @@ public class A3 {
 	   // some starter code for this method is provided:
 	   
       while (inp.hasNext()) {
-         // get the next word, convert to lower case, strip out blanks and non 
-         // alphabetic characters.
+
          String word = inp.next().toLowerCase().trim().replaceAll("[^a-z]","");
 
          if (word.length() > 0) { 
-        	 // TODO:
-      		 // Create a new token object, if not already in the wordsByNaturalOrder, 
-     		 // add the token to the BST, otherwise, increase the frequency count of the object already in the tree.
+        	Token token = new Token(word);
+        	if (wordsByNaturalOrder.find(token) == null) {
+        		wordsByNaturalOrder.add(token);
+        	} else {
+        		wordsByNaturalOrder.find(token).incrCount();
+        	}
+        	totalwordcount++;
          }
       }
    }
