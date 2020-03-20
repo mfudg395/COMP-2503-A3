@@ -120,6 +120,10 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		}
 		
 		queue.add(root.getData());
+		
+		if (root.getRight() != null) {
+			inOrder(root.getRight(), queue);
+		}
 	}
 	
 	public int size() {
@@ -148,6 +152,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		return h;
 	}
 
+	// With help from Nahuel Paladino
 	@Override
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
@@ -163,10 +168,8 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 
 			@Override
 			public T next() {
-				// TODO Auto-generated method stub
-				return null;
+				return nodes.poll();
 			}
-			
 		};
 	}
 
