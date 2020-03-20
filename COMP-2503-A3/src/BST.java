@@ -1,10 +1,55 @@
 import java.util.Iterator;
+import java.util.Queue;
+import java.util.ArrayDeque;
 import java.util.Comparator;
 
 public class BST<T extends Comparable<T>> implements Iterable<T> {
 	
-	private BSTNode<T> root;
+	private BSTNode root;
 	private int size;
+	
+	class BSTNode implements Comparable<BSTNode> {
+		
+		private T data;
+		private BSTNode left;
+		private BSTNode right;
+		
+		public BSTNode(T data) {
+			this.data = data;
+			setLeft(null);
+			setRight(null);	
+		}
+		
+		public void setLeft(BSTNode l) {
+			this.left = l;
+		}
+		
+		public void setRight(BSTNode r) {
+			this.right = r;
+		}
+		
+		public T getData() {
+			return data;
+		}
+		
+		public BSTNode getLeft() {
+			return left;
+		}
+		
+		public BSTNode getRight() {
+			return right;
+		}
+
+		@Override
+		public int compareTo(BSTNode node) {
+			return this.getData().compareTo(node.getData());
+		}
+		
+		public boolean equals(BSTNode node) {
+			return this.getData().equals(node.getData());
+		}
+
+	}
 
 	public BST() {
 		root = null;
@@ -17,7 +62,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 	}
 	
 	public void add(T d) {
-		BSTNode<T> nodeToAdd = new BSTNode<T>(d);
+		BSTNode nodeToAdd = new BSTNode(d);
 		if (root == null) {
 			root = nodeToAdd;
 		} else {
@@ -26,7 +71,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		size++;
 	}
 	
-	private void add(BSTNode<T> root, BSTNode<T> nodeToAdd) {
+	private void add(BSTNode root, BSTNode nodeToAdd) {
 		int compare = nodeToAdd.compareTo(root);
 		if (compare <= 0) {
 			if (root.getLeft() == null) {
@@ -43,19 +88,19 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		}
 		
 	}
-	
+	// Help from Nahuel Paladino.
 	public T find(T data) {
-		return find(data, root);
+		return find(data, root).getData();
 	}
 	
-	private T find(T data, BSTNode<T> root) {
+	private BSTNode find(T data, BSTNode root) {
 		if (root == null) {
 			return null;
 		}
 		
 		int compare = data.compareTo(root.getData());
 		if (compare == 0) {
-			return data;
+			return root;
 		} else if (compare < 0) {
 			return find(data, root.getLeft());
 		} else if (compare > 0) {
@@ -65,11 +110,23 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		}
 	}
 	
+	public void delete(T t) {
+		
+	}
+	
+	public void inOrder(BSTNode root, Queue<T> queue) {
+		if (root.getLeft() != null) {
+			inOrder(root.getLeft(), queue);
+		}
+		
+		queue.add(root.getData());
+	}
+	
 	public int size() {
 		return size;
 	}
 	
-	public BSTNode<T> getRoot() {
+	public BSTNode getRoot() {
 		return root;
 	}
 
@@ -78,7 +135,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 	 * 
 	 * @return height of node
 	 */
-	public int height(BSTNode<T> node) {
+	public int height(BSTNode node) {
 		int h = 0;
 		if (node == null) {
 			return 0;
@@ -93,8 +150,24 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Iterator<T>() {
+			Queue<T> nodes; {
+				nodes = new ArrayDeque<>();
+				inOrder(root, nodes);
+			}
+			
+			@Override
+			public boolean hasNext() {
+				return nodes.size() != 0;
+			}
+
+			@Override
+			public T next() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		};
 	}
 
 	public T min() {
