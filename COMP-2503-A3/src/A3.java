@@ -141,6 +141,9 @@ public class A3 {
 
    /* Calculate the average length of words stored the wordsByNaturalOrder tree*/
    private int avgLength() {
+	   if (wordsByNaturalOrder.size() == 0) {
+		   return 0;
+	   }
 	   int average = 0;
 	   for (Token t : wordsByNaturalOrder) {
 		   average += t.getWord().length();
