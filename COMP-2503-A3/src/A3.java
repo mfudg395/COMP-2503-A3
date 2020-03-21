@@ -57,17 +57,23 @@ public class A3 {
        System.out.println();
        System.out.println("10 Most Frequent");
        
-       /* TODO:
-        * Use an iterator to traverse the wordsByFreqDesc in-order, and print the first 10
-        */
-       
+       int limit = 0;
+       for (Token t : wordsByFreqDesc) {
+    	   if (limit < 10) {
+    		   System.out.println(t);
+    	   }
+    	   limit++;
+       }
 
+       limit = 0;
        System.out.println();
        System.out.println("10 Longest");
-
-       /* TODO:
-        * Use an iterator to traverse the wordsByLength in-order, and print the first 10
-        */
+       for (Token t : wordsByLength) {
+    	   if (limit < 10) {
+    		   System.out.println(t);
+    	   }
+    	   limit++;
+       }
 
        System.out.println();
        System.out.println("The longest word is " + wordsByLength.min());
@@ -98,20 +104,13 @@ public class A3 {
    /* Read the file and add words to the list/tree. 
     */
    private void readFile() {
-	   // some starter code for this method is provided:
-	   
       while (inp.hasNext()) {
 
          String word = inp.next().toLowerCase().trim().replaceAll("[^a-z]","");
 
          if (word.length() > 0) { 
         	Token token = new Token(word);
-        	if (wordsByNaturalOrder.size() == 0) {
-        		wordsByNaturalOrder.add(token);
-        	} else {
-        		addToBST(token, wordsByNaturalOrder);
-        	}
-        	
+        	addToBST(token, wordsByNaturalOrder);
         	totalwordcount++;
          }
       }
@@ -119,14 +118,12 @@ public class A3 {
 
    /* Create the frequency and length lists. */
    private void createFreqLists() {
-	   // TODO:
-	   // Use your implementation of the iterator interface
-	   // for the BST class.
-	   
-	   // Make sure you only only add words that have occurred more than twice
-	   // to the tree ordered by word frequency.
-	   
-	   // All words in the original tree must be added to tree ordered by word length
+	   for (Token t : wordsByNaturalOrder) {
+		   wordsByLength.add(t);
+		   if (t.getCount() > 2) {
+			   wordsByFreqDesc.add(t);
+		   }
+	   }
    }
    
    // Completed with help from Dominic Silvestre.
@@ -153,7 +150,6 @@ public class A3 {
 
    /* Remove stop words from the tree. */
    private void removeStop() {
-	   // TODO:
 	   List<String> stopwordsList = Arrays.asList(stopwords); 
 	   for (Token t : wordsByNaturalOrder) {
 		   if (stopwordsList.contains(t.getWord())) {
