@@ -28,6 +28,10 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 			this.right = r;
 		}
 		
+		public void setData(T d) {
+			data = d;
+		}
+		
 		public T getData() {
 			return data;
 		}
@@ -73,7 +77,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 	
 	private void add(BSTNode root, BSTNode nodeToAdd) {
 		int compare = nodeToAdd.compareTo(root);
-		if (compare <= 0) {
+		if (compare < 0) {
 			if (root.getLeft() == null) {
 				root.setLeft(nodeToAdd);
 			} else {
@@ -89,8 +93,8 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		
 	}
 	// Help from Nahuel Paladino.
-	public T find(T data) {
-		return find(data, root).getData();
+	public BSTNode find(T data) {
+		return find(data, root);
 	}
 	
 	private BSTNode find(T data, BSTNode root) {
@@ -111,18 +115,49 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 	}
 	
 	public void delete(T t) {
+		delete(t, root);
+	}
+	
+	private BSTNode delete(T t, BSTNode root) {
+		int compare = t.compareTo(root.getData());
+		if (compare < 0) {
+			root.left = delete(t, root.getLeft());
+		} else if (compare > 0) {
+			root.right = delete(t, root.getRight());
+		} else {
+			if (isLeaf(root)) {
+				root = null;
+				size--;
+			} else if (root.right == null) {
+				root = root.left;
+				size--;
+			} else if (root.left == null) {
+				root = root.right;
+				size--;
+			} else {
+				T minValue = min(root.getRight());
+				root.setData(minValue);
+				root.setRight(delete(minValue, root.getRight()));
+			}
+		}
+		return root;
+		
 		
 	}
 	
-	public void inOrder(BSTNode root, Queue<T> queue) {
+	private boolean isLeaf(BSTNode n) {
+		return n.getLeft() == null && n.getRight() == null;
+	}
+	
+	public void inOrderAdd(BSTNode root, Queue<T> queue) {
 		if (root.getLeft() != null) {
-			inOrder(root.getLeft(), queue);
+			inOrderAdd(root.getLeft(), queue);
 		}
 		
 		queue.add(root.getData());
-		
+
 		if (root.getRight() != null) {
-			inOrder(root.getRight(), queue);
+			inOrderAdd(root.getRight(), queue);
 		}
 	}
 	
@@ -158,7 +193,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		return new Iterator<T>() {
 			Queue<T> nodes; {
 				nodes = new ArrayDeque<>();
-				inOrder(root, nodes);
+				inOrderAdd(root, nodes);
 			}
 			
 			@Override
@@ -172,9 +207,30 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 			}
 		};
 	}
+	
+	class BSTIterator implements Visit<Object> {
+
+		@Override
+		public void visit(Object t) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 
 	public T min() {
-		// TODO Auto-generated method stub
-		return null;
+		return min(root);
+	}
+	
+	private T min(BSTNode root) {
+		if (root == null) {
+			return null;
+		}
+		
+		if (root.getLeft() != null) {
+			return min(root.getLeft());
+		}
+		
+		return root.getData();
 	}
 }
