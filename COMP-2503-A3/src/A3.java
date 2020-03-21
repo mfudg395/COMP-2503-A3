@@ -1,6 +1,9 @@
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /** 
 * COMP 2503 Winter 2020 Assignment 3 
@@ -75,6 +78,9 @@ public class A3 {
        /* TODO:
         * Use an iterator to traverse the wordsByNaturalOrder in-order, and print all elements in the tree
         */
+       for (Token t : wordsByNaturalOrder) {
+    	   System.out.println(t);
+       }
 
        System.out.println();
        
@@ -100,11 +106,12 @@ public class A3 {
 
          if (word.length() > 0) { 
         	Token token = new Token(word);
-        	if (wordsByNaturalOrder.find(token) == null) {
+        	if (wordsByNaturalOrder.size() == 0) {
         		wordsByNaturalOrder.add(token);
         	} else {
-        		wordsByNaturalOrder.find(token).incrCount();
+        		addToBST(token, wordsByNaturalOrder);
         	}
+        	
         	totalwordcount++;
          }
       }
@@ -121,16 +128,39 @@ public class A3 {
 	   
 	   // All words in the original tree must be added to tree ordered by word length
    }
+   
+   // Completed with help from Dominic Silvestre.
+   private void addToBST(Token token, BST<Token> bst) {
+	   for (Token t : bst) {
+		   if (token.compareTo(t) == 0) {
+			   t.incrCount();
+			   return;
+		   }
+	   }
+	   token.incrCount();
+	   bst.add(token);
+	   
+   }
 
    /* Calculate the average length of words stored the wordsByNaturalOrder tree*/
    private int avgLength() {
-	   // TODO:
-	   return 0;
+	   int average = 0;
+	   for (Token t : wordsByNaturalOrder) {
+		   average += t.getWord().length();
+	   }
+	   return average / wordsByNaturalOrder.size();
    }
 
    /* Remove stop words from the tree. */
    private void removeStop() {
 	   // TODO:
+	   List<String> stopwordsList = Arrays.asList(stopwords); 
+	   for (Token t : wordsByNaturalOrder) {
+		   if (stopwordsList.contains(t.getWord())) {
+			   wordsByNaturalOrder.delete(t);
+			   stopwordcount++;
+		   }
+	   }
    }
 
    /* Calculate the optimal height for a tree of size n. 
