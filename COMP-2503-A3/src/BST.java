@@ -230,16 +230,6 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		};
 	}
 
-	class BSTIterator implements Visit<Object> {
-
-		@Override
-		public void visit(Object t) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
 	public T min() {
 		return min(root);
 	}
