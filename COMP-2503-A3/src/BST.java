@@ -43,6 +43,10 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		public BSTNode getRight() {
 			return right;
 		}
+		
+		public boolean isLeaf() {
+			return left == null && right == null;
+		}
 
 		@Override
 		public int compareTo(BSTNode node) {
@@ -118,6 +122,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		delete(t, root);
 	}
 	
+	// Completed with help from Dominic Silvestre.
 	private BSTNode delete(T t, BSTNode root) {
 		int compare = t.compareTo(root.getData());
 		if (compare < 0) {
@@ -125,7 +130,7 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		} else if (compare > 0) {
 			root.right = delete(t, root.getRight());
 		} else {
-			if (isLeaf(root)) {
+			if (root.isLeaf()) {
 				root = null;
 				size--;
 			} else if (root.right == null) {
@@ -141,12 +146,6 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 			}
 		}
 		return root;
-		
-		
-	}
-	
-	private boolean isLeaf(BSTNode n) {
-		return n.getLeft() == null && n.getRight() == null;
 	}
 	
 	public void inOrderAdd(BSTNode root, Queue<T> queue) {
