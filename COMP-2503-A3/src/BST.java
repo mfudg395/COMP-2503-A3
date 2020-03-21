@@ -174,7 +174,6 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 			this.root = root;
 			return;
 		}
-		
 		if (root.getLeft() != null) {
 			inOrderAdd(root.getLeft(), queue);
 		}
@@ -200,16 +199,13 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 	 * @return height of node
 	 */
 	public int height(BSTNode node) {
-		int h = 0;
+		int height = 0;
 		if (node == null) {
-			return 0;
+			return -1;
 		}
-		if (height(node.getLeft()) > height(node.getRight())) {
-			h = height(node.getLeft()) + 1;
-		} else {
-			h = height(node.getRight()) + 1;
-		}
-		return h;
+		
+		height = Math.max(height(node.getLeft()), height(node.getRight())) + 1;
+		return height;
 	}
 
 	// With help from Nahuel Paladino
