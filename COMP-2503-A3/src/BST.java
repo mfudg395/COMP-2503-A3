@@ -310,13 +310,22 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 	}
 
 	/**
+	 * Returns the height of the BST.
+	 * 
+	 * @return the height of the BST
+	 */
+	public int height() {
+		return height(root);
+	}
+	
+	/**
 	 * Returns the height of a given node. The tree is searched recursively for the
 	 * highest subtree, and increased by one for each node checked. The maximum value
 	 * between the left and right subtrees is returned.
 	 * 
 	 * @return height of node
 	 */
-	public int height(BSTNode node) {
+	private int height(BSTNode node) {
 		int height = 0;
 		if (node == null) {
 			return -1;
