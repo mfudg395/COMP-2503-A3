@@ -13,10 +13,13 @@ import java.util.List;
 * BSTs with alternative orderings are constructed to show the
 * required output.
 * 
+* @author Matthew Fudge
+* 
 * Updated Winter 2020
 */
 
 public class A3 {
+	
    /* The lists (trees) of words. Alphabetic, by Frequency 
       and by length. */
    private BST<Token> wordsByNaturalOrder = new BST<Token>();
@@ -78,9 +81,6 @@ public class A3 {
        System.out.println();        
        System.out.println("All");
 
-       /* TODO:
-        * Use an iterator to traverse the wordsByNaturalOrder in-order, and print all elements in the tree
-        */
        for (Token t : wordsByNaturalOrder) {
     	   System.out.println(t);
        }
@@ -98,7 +98,12 @@ public class A3 {
              + wordsByLength.height(wordsByLength.getRoot()) + ")");
    }
    
-   /* Read the file and add words to the list/tree. 
+   /**
+    * Reads the input file and processes it. Words are separated by whitespace and added
+    * alphabetically to the wordsByNaturalOrder tree.
+    * 
+    * Only words not apart of the given stopword list are added, and all words have their
+    * punctuation removed and are converted to lowercase before being added.
     */
    private void readFile() {
       while (inp.hasNext()) {
@@ -113,7 +118,12 @@ public class A3 {
       }
    }
 
-   /* Create the frequency and length lists. */
+   /**
+    * Adds tokens from the wordsByNaturalOrder tree to the other two trees. Tokens are
+    * iterated through the original and added to the wordsByLength tree as normal. If a
+    * token has a frequency of greater than two, it is also added to the wordsByFreqDesc
+    * tree.
+    */
    private void createFreqLists() {
 	   for (Token t : wordsByNaturalOrder) {
 		   wordsByLength.add(t);
@@ -123,7 +133,15 @@ public class A3 {
 	   }
    }
    
-   // Completed with help from Dominic Silvestre.
+   /**
+    * Adds a given token to a binary search tree. If a duplicate is found while trying to
+    * add, the frequency count for that token is incremented and the token is not added.
+    * 
+    * Completed with help from Dominic Silvestre.
+    * 
+    * @param token the token to add
+    * @param bst the bst to add the token to
+    */
    private void addToBST(Token token, BST<Token> bst) {
 	   for (Token t : bst) {
 		   if (token.compareTo(t) == 0) {
@@ -136,7 +154,11 @@ public class A3 {
 	   
    }
 
-   /* Calculate the average length of words stored the wordsByNaturalOrder tree*/
+   /**
+    * Calculates the average length of all the words in the wordsByNaturalOrder tree.
+    * 
+    * @return the average length
+    */
    private int avgLength() {
 	   if (wordsByNaturalOrder.size() == 0) {
 		   return 0;
@@ -148,7 +170,10 @@ public class A3 {
 	   return average / wordsByNaturalOrder.size();
    }
 
-   /* Remove stop words from the tree. */
+   /**
+    * Iterates through the wordsByNaturalOrder tree and removes all stopwords. The
+    * stopword count is incremented for each word removed.
+    */
    private void removeStop() {
 	   List<String> stopwordsList = Arrays.asList(stopwords); 
 	   for (Token t : wordsByNaturalOrder) {

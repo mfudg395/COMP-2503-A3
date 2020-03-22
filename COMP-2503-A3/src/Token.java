@@ -8,6 +8,8 @@ import java.util.Comparator;
  * Updated Winter 2020
  * @author Maryam Elahi
  * 
+ * Assignment by: Matthew Fudge
+ * 
  * A Token object represents a word (string) and how many times it 
  * has occurred in a given text. 
 */
@@ -109,7 +111,7 @@ public class Token implements Comparable<Token> {
       return getWord().hashCode();
    } 
 
-   /** 
+   /** Checking if two tokens are equal.
     */
    public boolean equals( Object other) {
       if ( other == this) return true;
