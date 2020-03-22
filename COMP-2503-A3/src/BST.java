@@ -240,28 +240,6 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 		}
 		return root;
 	}
-
-	/**
-	 * Adds a node to the queue for the iterator, based on the In-Order traversal method.
-	 * 
-	 * @param root the element to add
-	 * @param queue the queue to add the element to
-	 */
-	public void inOrderAdd(BSTNode root, Queue<T> queue) {
-		if (this.root == null) {
-			this.root = root;
-			return;
-		}
-		if (root.getLeft() != null) {
-			inOrderAdd(root.getLeft(), queue);
-		}
-
-		queue.add(root.getData());
-
-		if (root.getRight() != null) {
-			inOrderAdd(root.getRight(), queue);
-		}
-	}
 	
 	/**
 	 * Returns the minimum value in the tree.
@@ -361,5 +339,29 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 				return nodes.poll();
 			}
 		};
+	}
+	
+	/**
+	 * Adds a node to the queue for the iterator, based on the In-Order traversal method.
+	 * 
+	 * Completed with help from Nahuel Paladino.
+	 * 
+	 * @param root the element to add
+	 * @param queue the queue to add the element to
+	 */
+	public void inOrderAdd(BSTNode root, Queue<T> queue) {
+		if (this.root == null) {
+			this.root = root;
+			return;
+		}
+		if (root.getLeft() != null) {
+			inOrderAdd(root.getLeft(), queue);
+		}
+
+		queue.add(root.getData());
+
+		if (root.getRight() != null) {
+			inOrderAdd(root.getRight(), queue);
+		}
 	}
 }
