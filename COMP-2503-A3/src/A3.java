@@ -89,13 +89,13 @@ public class A3 {
        
        System.out.println("Alphabetic Tree: (Optimum Height: " + 
              optHeight(wordsByNaturalOrder.size()) + ") (Actual Height: " 
-             + wordsByNaturalOrder.height(wordsByNaturalOrder.getRoot()) + ")");
+             + wordsByNaturalOrder.height() + ")");
        System.out.println("Frequency Tree: (Optimum Height: " + 
              optHeight(wordsByFreqDesc.size()) + ") (Actual Height: " 
-             + wordsByFreqDesc.height(wordsByFreqDesc.getRoot()) + ")");
+             + wordsByFreqDesc.height() + ")");
        System.out.println("Length Tree: (Optimum Height: " + 
              optHeight(wordsByLength.size()) + ") (Actual Height: " 
-             + wordsByLength.height(wordsByLength.getRoot()) + ")");
+             + wordsByLength.height() + ")");
    }
    
    /**
