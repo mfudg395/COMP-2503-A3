@@ -188,11 +188,9 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 			return root;
 		} else if (compare < 0) {
 			return find(data, root.getLeft());
-		} else if (compare > 0) {
-			return find(data, root.getRight());
 		} else {
-			return null;
-		}
+			return find(data, root.getRight());
+		} 
 	}
 
 	/**
@@ -351,7 +349,6 @@ public class BST<T extends Comparable<T>> implements Iterable<T> {
 	 */
 	public void inOrderAdd(BSTNode root, Queue<T> queue) {
 		if (this.root == null) {
-			this.root = root;
 			return;
 		}
 		if (root.getLeft() != null) {
